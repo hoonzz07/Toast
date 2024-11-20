@@ -30,7 +30,7 @@ public class ToastRestController {
         }
 
         // 비밀번호 확인 로직 추가 (예시)
-        if (!foundCustomer.getC_password().equals(customer.getC_password())) {
+        if (!foundCustomer.getPassword().equals(customer.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다.");
         }
 

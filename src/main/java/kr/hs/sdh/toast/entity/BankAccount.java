@@ -1,81 +1,133 @@
 package kr.hs.sdh.toast.entity;
 
-public class BankAccount {
+import java.time.LocalDateTime;
+import java.util.Set;
 
+/**
+ * 'BANK_ACCOUNT' 테이블의 데이터를 담는 클래스
+ *
+ * @since 2023-11-18
+ * @version 0.0.1
+ */
+public final class BankAccount {
 
+    /**
+     * 계좌 번호 (Mapped to 'BANK_ACCOUNT.ba_number')
+     */
+    private final String number;
 
-    private String ba_uuid;
-    private String bk_uuid;
-    private String bc_uuid;
-    private String ba_name;
+    /**
+     * 계좌 금액 (Mapped to 'BANK_ACCOUNT.ba_amount')
+     */
+    private final long amount;
 
-    public void setBa_number(String ba_number) {
-        this.ba_number = ba_number;
+    /**
+     * 계좌 별칭 (Mapped to 'BANK_ACCOUNT.ba_alias')
+     */
+    private final String alias;
+
+    /**
+     * 계좌 생성일자 (Mapped to 'BANK_ACCOUNT.ba_create_date')
+     */
+    private final LocalDateTime createDateTime;
+
+    /**
+     * 계좌 만기일자 (Mapped to 'BANK_ACCOUNT.ba_maturity_date')
+     */
+    private final LocalDateTime maturityDateTime;
+
+    /**
+     * 계좌 동결 여부 (Mapped to 'BANK_ACCOUNT.ba_freeze')
+     */
+    private final boolean isFreeze;
+
+    private BankBook bankBook;
+
+    private Set<BankAccountHistory> bankAccountHistories;
+
+    /**
+     * {@link BankAccount} 클래스의 생성자
+     * 
+     * @param number 계좌 번호
+     * @param amount 계좌 금액
+     * @param alias 계좌 별칭
+     * @param createDateTime 계좌 생성일자
+     * @param maturityDateTime 계좌 만기일자
+     * @param isFreeze 계좌 동결 여부
+     */
+    public BankAccount(
+        final String number,
+        final long amount,
+        final String alias,
+        final LocalDateTime createDateTime,
+        final LocalDateTime maturityDateTime,
+        final boolean isFreeze
+    ) {
+        this.number = number;
+        this.amount = amount;
+        this.alias = alias;
+        this.createDateTime = createDateTime;
+        this.maturityDateTime = maturityDateTime;
+        this.isFreeze = isFreeze;
     }
 
-    public void setBa_uuid(String ba_uuid) {
-        this.ba_uuid = ba_uuid;
+    public boolean isFreeze() {
+        return isFreeze;
     }
 
-    public void setBk_uuid(String bk_uuid) {
-        this.bk_uuid = bk_uuid;
+    public LocalDateTime getMaturityDateTime() {
+        return maturityDateTime;
     }
 
-    public void setBc_uuid(String bc_uuid) {
-        this.bc_uuid = bc_uuid;
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
     }
 
-    public void setBa_name(String ba_name) {
-        this.ba_name = ba_name;
+    public String getAlias() {
+        return alias;
     }
 
-    public void setBa_open_date(String ba_open_date) {
-        this.ba_open_date = ba_open_date;
+    public long getAmount() {
+        return amount;
     }
 
-    public void setBa_amount(String ba_amount) {
-        this.ba_amount = ba_amount;
+    public String getNumber() {
+        return number;
     }
 
-    public void setBa_locked(String ba_locked) {
-        this.ba_locked = ba_locked;
+    public void setBankBook(BankBook bankBook) {
+        this.bankBook = bankBook;
     }
 
-    private String ba_number;
-
-    public String getBa_open_date() {
-        return ba_open_date;
+    public void setBankAccountHistories(Set<BankAccountHistory> bankAccountHistories) {
+        this.bankAccountHistories = bankAccountHistories;
     }
 
-    public String getBa_uuid() {
-        return ba_uuid;
+    @Override
+    public boolean equals(final Object object) {
+        if (object != null) {
+            if (this == object) {
+                return true;
+            }
+
+            if (object instanceof final BankAccount bankAccount) {
+                return this.number.contentEquals(bankAccount.number);
+            }
+        }
+
+        return false;
     }
 
-    public String getBk_uuid() {
-        return bk_uuid;
+    @Override
+    public int hashCode() {
+        return this.number.hashCode();
     }
 
-    public String getBc_uuid() {
-        return bc_uuid;
+    public Set<BankAccountHistory> getBankAccountHistories() {
+        return bankAccountHistories;
     }
 
-    public String getBa_name() {
-        return ba_name;
+    public BankBook getBankBook() {
+        return bankBook;
     }
-
-    public String getBa_number() {
-        return ba_number;
-    }
-
-    public String getBa_amount() {
-        return ba_amount;
-    }
-
-    public String getBa_locked() {
-        return ba_locked;
-    }
-
-    private String ba_open_date;
-    private String ba_amount;
-    private String ba_locked;
 }

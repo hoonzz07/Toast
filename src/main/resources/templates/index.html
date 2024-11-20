@@ -3,8 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+
+    </style>
 </head>
 <body>
-    <h2>index</h2>
+<div class="container">
+    <h2 th:text="|어서오세요, ${user.name}님|"></h2>
+    <div class="bank">
+        <div class="bankContainer" th:each="bankAccount : ${user.bankAccounts}" th:with="bankBook=${bankAccount.bankBook}">
+            <div class="CardImgCont">
+                <div class="Card"></div>
+                <div class="CardBk"></div>
+            </div>
+            <div class="ValueCont">
+                <div class="BankName" th:text="|${bankBook.name}|"></div>
+                <div class="BankInterestRate" th:text="|금리 : ${bankBook.interestRate}|"></div>
+                <div class="BankValue" th:text="|계좌 별칭 : ${bankAccount.alias}|"></div>
+                <div class="BankValue" th:text="|계좌 번호 : ${bankAccount.number}|"></div>
+                <div class="BankValue" th:text="|계좌 개설일 : ${bankAccount.createDateTime}|"></div>
+                <div class="BankValue" th:text="|계좌 금액 : ${bankAccount.amount}|"></div>
+                <ol>
+                    <li th:each="bankAccountHistory: ${bankAccount.bankAccountHistories}"></li>
+                </ol>
+                <div class="sendButton" onclick="showPopup()">Send</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 팝업과 오버레이 추가 -->
+<div class="overlay" id="overlay" onclick="hidePopup()"></div>
+<div class="popup" id="popup">
+    <h3>송금할 계좌를 입력해주세요.</h3>
+    <input class="input" type="text">
+    <button onclick="hidePopup()">닫기</button>
+</div>
+
+<script>
+    function showPopup() {
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    function hidePopup() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('popup').style.display = 'none';
+    }
+</script>
 </body>
 </html>

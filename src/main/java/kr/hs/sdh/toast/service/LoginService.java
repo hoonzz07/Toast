@@ -16,11 +16,11 @@ public class LoginService {
     }
 
     public Customer getCustomer (String id) {
-        return loginRepository.getCustomerRoleByCId(id);
+        return loginRepository.findById(id);
     }
 
     public void SetCustomer (Customer customer) {
-        loginRepository.insertCustomer(customer);
+        
     }
 
 }
